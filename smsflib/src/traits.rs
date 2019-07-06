@@ -16,7 +16,7 @@ pub trait BasicStackOperations {
     fn clear(&mut self);
 }
 
-pub trait MathOperations {
+pub trait BasicMathOperations {
     fn add(&mut self);
 
     fn subtract(&mut self);
@@ -26,12 +26,20 @@ pub trait MathOperations {
     fn divide(&mut self);
 
     fn change_sign(&mut self);
+}
 
-    fn power(&mut self);
+pub trait LogExpOperations {
+    fn pow(&mut self);
 
-    fn log(&mut self);
+    fn ln(&mut self);
+
+    fn log2(&mut self);
 
     fn log10(&mut self);
+
+    fn exp(&mut self);
+
+    fn exp2(&mut self);
 }
 
 pub trait TrigOperations {

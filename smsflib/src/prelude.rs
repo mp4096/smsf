@@ -1,2 +1,4 @@
 pub use crate::classic::ClassicStack;
-pub use crate::traits::BasicStackOperations;
+pub use crate::traits::{
+    BasicMathOperations, BasicStackOperations, LogExpOperations, TrigOperations,
+};

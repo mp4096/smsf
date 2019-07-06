@@ -2,7 +2,9 @@
 
 /// Implementation of the [BasicStackOperations](crate::traits::BasicStackOperations) trait
 mod basic_ops;
-/// Implementation of the [MathOperations](crate::traits::MathOperations) trait
+/// Implementation of the [LogExpOperations](crate::traits::LogExpOperations) trait
+mod log_exp_ops;
+/// Implementation of the [BasicMathOperations](crate::traits::BasicMathOperations) trait
 mod math_ops;
 /// Implementation of the [TrigOperations](crate::traits::TrigOperations) trait
 mod trig_ops;

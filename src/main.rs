@@ -27,4 +27,14 @@ fn main() {
     println!("After pushing 3:\n{}", stack);
     stack.push(4);
     println!("After pushing 4:\n{}", stack);
+
+    let mut stack = ClassicStack::<f64>::new_empty();
+    stack.push(10.0);
+    println!("After pushing 10.0:\n{}", stack);
+    stack.ln();
+    println!("After computing ln:\n{}", stack);
+    stack.push(10.0);
+    println!("After pushing 10.0:\n{}", stack);
+    stack.multiply();
+    println!("After multiplying:\n{}", stack);
 }
