@@ -13,7 +13,7 @@ fn main() {
     println!("After swap:\n{}", stack);
     stack.drop();
     println!("After drop:\n{}", stack);
-    dbg!{stack.pop()};
+    dbg! {stack.pop()};
     println!("After pop:\n{}", stack);
     stack.push(7);
     println!("After pushing 7:\n{}", stack);
