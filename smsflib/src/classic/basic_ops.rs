@@ -44,9 +44,7 @@ impl<T: Num + Copy> BasicStackOperations for ClassicStack<T> {
     }
 
     fn swap(&mut self) {
-        let tmp = self.x;
-        self.x = self.y;
-        self.y = tmp;
+        std::mem::swap(&mut self.x, &mut self.y);
     }
 
     fn pop(&mut self) -> Self::Elem {
