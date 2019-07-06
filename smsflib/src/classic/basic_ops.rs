@@ -7,6 +7,20 @@ use num_traits::Num;
 impl<T: Num + Copy> BasicStackOperations for ClassicStack<T> {
     type Elem = T;
 
+    /// Drop the X register, shifting other registers down and copying the T register.
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// stack.drop();
+    ///
+    /// assert_eq!(stack.x, 2);
+    /// assert_eq!(stack.y, 3);
+    /// assert_eq!(stack.z, 4);
+    /// assert_eq!(stack.t, 4);
+    /// ```
     fn drop(&mut self) {
         self.x = self.y;
         self.y = self.z;
