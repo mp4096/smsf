@@ -1,2 +1,2 @@
-pub use crate::classic::types::Stack as ClassicStack;
+pub use crate::classic::ClassicStack;
 pub use crate::traits::BasicStackOperations;

@@ -3,20 +3,20 @@ use num_traits::Num;
 use std::fmt;
 
 #[derive(Debug)]
-pub struct Stack<T> {
+pub struct ClassicStack<T> {
     pub x: T,
     pub y: T,
     pub z: T,
     pub t: T,
 }
 
-impl<T: Num> Stack<T> {
+impl<T: Num> ClassicStack<T> {
     pub fn new(x: T, y: T, z: T, t: T) -> Self {
-        Stack { x, y, z, t }
+        ClassicStack { x, y, z, t }
     }
 
     pub fn new_empty() -> Self {
-        Stack {
+        ClassicStack {
             x: zero(),
             y: zero(),
             z: zero(),
@@ -25,7 +25,7 @@ impl<T: Num> Stack<T> {
     }
 }
 
-impl<T: fmt::Display> fmt::Display for Stack<T> {
+impl<T: fmt::Display> fmt::Display for ClassicStack<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,

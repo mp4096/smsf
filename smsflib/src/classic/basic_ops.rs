@@ -1,9 +1,10 @@
-use crate::classic::types::Stack;
+use crate::classic::ClassicStack;
 use crate::traits::BasicStackOperations;
+
 use num_traits::identities::zero;
 use num_traits::Num;
 
-impl<T: Num + Copy> BasicStackOperations for Stack<T> {
+impl<T: Num + Copy> BasicStackOperations for ClassicStack<T> {
     type Elem = T;
 
     fn drop(&mut self) {
@@ -57,11 +58,11 @@ impl<T: Num + Copy> BasicStackOperations for Stack<T> {
 #[cfg(test)]
 mod tests {
     use super::BasicStackOperations;
-    use super::Stack;
+    use super::ClassicStack;
 
     #[test]
     fn test_drop() {
-        let mut stack = Stack::<u32>::new(1, 2, 3, 4);
+        let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
         stack.drop();
 
         assert_eq!(stack.x, 2);
@@ -72,7 +73,7 @@ mod tests {
 
     #[test]
     fn test_rotate_down() {
-        let mut stack = Stack::<u32>::new(1, 2, 3, 4);
+        let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
         stack.rotate_down();
 
         assert_eq!(stack.x, 2);
@@ -83,7 +84,7 @@ mod tests {
 
     #[test]
     fn test_rotate_up() {
-        let mut stack = Stack::<u32>::new(1, 2, 3, 4);
+        let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
         stack.rotate_up();
 
         assert_eq!(stack.x, 4);
@@ -94,7 +95,7 @@ mod tests {
 
     #[test]
     fn test_swap() {
-        let mut stack = Stack::<u32>::new(1, 2, 3, 4);
+        let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
         stack.swap();
 
         assert_eq!(stack.x, 2);

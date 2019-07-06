@@ -1,4 +1,6 @@
-pub mod basic_ops;
-pub mod math_ops;
-pub mod trig_ops;
-pub mod types;
+mod basic_ops;
+mod math_ops;
+mod trig_ops;
+mod types;
+
+pub use types::ClassicStack;
