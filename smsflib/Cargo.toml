@@ -1,0 +1,8 @@
+[package]
+name = "smsflib"
+version = "0.1.0"
+authors = ["Mikhail Pak <code@mp4096.com>"]
+edition = "2018"
+
+[dependencies]
+num-traits = "^0.2.8"
