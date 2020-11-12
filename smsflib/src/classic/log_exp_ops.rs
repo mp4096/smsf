@@ -13,10 +13,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<f64>::new(2.0, 10.0, 2.0, 3.0);
     /// stack.pow();
     ///
-    /// assert_approx_eq!(stack.x, 100.0);
-    /// assert_eq!(stack.y, 2.0);
-    /// assert_eq!(stack.z, 3.0);
-    /// assert_eq!(stack.t, 3.0);
+    /// assert_approx_eq!(stack.x(), 100.0);
+    /// assert_eq!(stack.y(), 2.0);
+    /// assert_eq!(stack.z(), 3.0);
+    /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn pow(&mut self) {
         self.x = self.y.powf(self.x);
@@ -32,10 +32,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<f64>::new(42.0, 1.0, 2.0, 3.0);
     /// stack.ln();
     ///
-    /// assert_approx_eq!(stack.x, 3.73766961828);
-    /// assert_eq!(stack.y, 1.0);
-    /// assert_eq!(stack.z, 2.0);
-    /// assert_eq!(stack.t, 3.0);
+    /// assert_approx_eq!(stack.x(), 3.73766961828);
+    /// assert_eq!(stack.y(), 1.0);
+    /// assert_eq!(stack.z(), 2.0);
+    /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn ln(&mut self) {
         self.x = self.x.ln();
@@ -50,10 +50,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<f64>::new(64.0, 1.0, 2.0, 3.0);
     /// stack.log2();
     ///
-    /// assert_approx_eq!(stack.x, 6.0);
-    /// assert_eq!(stack.y, 1.0);
-    /// assert_eq!(stack.z, 2.0);
-    /// assert_eq!(stack.t, 3.0);
+    /// assert_approx_eq!(stack.x(), 6.0);
+    /// assert_eq!(stack.y(), 1.0);
+    /// assert_eq!(stack.z(), 2.0);
+    /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn log2(&mut self) {
         self.x = self.x.log2();
@@ -68,10 +68,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<f64>::new(100.0, 1.0, 2.0, 3.0);
     /// stack.log10();
     ///
-    /// assert_approx_eq!(stack.x, 2.0);
-    /// assert_eq!(stack.y, 1.0);
-    /// assert_eq!(stack.z, 2.0);
-    /// assert_eq!(stack.t, 3.0);
+    /// assert_approx_eq!(stack.x(), 2.0);
+    /// assert_eq!(stack.y(), 1.0);
+    /// assert_eq!(stack.z(), 2.0);
+    /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn log10(&mut self) {
         self.x = self.x.log10();
@@ -86,10 +86,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<f64>::new(1.0, 1.0, 2.0, 3.0);
     /// stack.exp();
     ///
-    /// assert_approx_eq!(stack.x, 2.718281828);
-    /// assert_eq!(stack.y, 1.0);
-    /// assert_eq!(stack.z, 2.0);
-    /// assert_eq!(stack.t, 3.0);
+    /// assert_approx_eq!(stack.x(), 2.718281828);
+    /// assert_eq!(stack.y(), 1.0);
+    /// assert_eq!(stack.z(), 2.0);
+    /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn exp(&mut self) {
         self.x = self.x.exp();
@@ -104,10 +104,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<f64>::new(12.0, 1.0, 2.0, 3.0);
     /// stack.exp2();
     ///
-    /// assert_approx_eq!(stack.x, 4096.0);
-    /// assert_eq!(stack.y, 1.0);
-    /// assert_eq!(stack.z, 2.0);
-    /// assert_eq!(stack.t, 3.0);
+    /// assert_approx_eq!(stack.x(), 4096.0);
+    /// assert_eq!(stack.y(), 1.0);
+    /// assert_eq!(stack.z(), 2.0);
+    /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn exp2(&mut self) {
         self.x = self.x.exp2();

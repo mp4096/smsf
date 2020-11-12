@@ -4,10 +4,10 @@ use std::fmt;
 
 #[derive(Debug)]
 pub struct ClassicStack<T> {
-    pub x: T,
-    pub y: T,
-    pub z: T,
-    pub t: T,
+    pub(super) x: T,
+    pub(super) y: T,
+    pub(super) z: T,
+    pub(super) t: T,
 }
 
 impl<T: Num> ClassicStack<T> {
@@ -22,6 +22,24 @@ impl<T: Num> ClassicStack<T> {
             z: zero(),
             t: zero(),
         }
+    }
+}
+
+impl<T: Copy> ClassicStack<T> {
+    pub fn x(&self) -> T {
+        self.x
+    }
+
+    pub fn y(&self) -> T {
+        self.y
+    }
+
+    pub fn z(&self) -> T {
+        self.z
+    }
+
+    pub fn t(&self) -> T {
+        self.t
     }
 }
 

@@ -24,10 +24,10 @@ impl<T: Num + Copy> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// stack.drop();
     ///
-    /// assert_eq!(stack.x, 2);
-    /// assert_eq!(stack.y, 3);
-    /// assert_eq!(stack.z, 4);
-    /// assert_eq!(stack.t, 4);
+    /// assert_eq!(stack.x(), 2);
+    /// assert_eq!(stack.y(), 3);
+    /// assert_eq!(stack.z(), 4);
+    /// assert_eq!(stack.t(), 4);
     /// ```
     fn drop(&mut self) {
         self.x = self.y;
@@ -85,10 +85,10 @@ mod tests {
         let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
         stack.drop();
 
-        assert_eq!(stack.x, 2);
-        assert_eq!(stack.y, 3);
-        assert_eq!(stack.z, 4);
-        assert_eq!(stack.t, 4);
+        assert_eq!(stack.x(), 2);
+        assert_eq!(stack.y(), 3);
+        assert_eq!(stack.z(), 4);
+        assert_eq!(stack.t(), 4);
     }
 
     #[test]
@@ -96,10 +96,10 @@ mod tests {
         let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
         stack.rotate_down();
 
-        assert_eq!(stack.x, 2);
-        assert_eq!(stack.y, 3);
-        assert_eq!(stack.z, 4);
-        assert_eq!(stack.t, 1);
+        assert_eq!(stack.x(), 2);
+        assert_eq!(stack.y(), 3);
+        assert_eq!(stack.z(), 4);
+        assert_eq!(stack.t(), 1);
     }
 
     #[test]
@@ -107,10 +107,10 @@ mod tests {
         let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
         stack.rotate_up();
 
-        assert_eq!(stack.x, 4);
-        assert_eq!(stack.y, 1);
-        assert_eq!(stack.z, 2);
-        assert_eq!(stack.t, 3);
+        assert_eq!(stack.x(), 4);
+        assert_eq!(stack.y(), 1);
+        assert_eq!(stack.z(), 2);
+        assert_eq!(stack.t(), 3);
     }
 
     #[test]
@@ -118,10 +118,10 @@ mod tests {
         let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
         stack.swap();
 
-        assert_eq!(stack.x, 2);
-        assert_eq!(stack.y, 1);
-        assert_eq!(stack.z, 3);
-        assert_eq!(stack.t, 4);
+        assert_eq!(stack.x(), 2);
+        assert_eq!(stack.y(), 1);
+        assert_eq!(stack.z(), 3);
+        assert_eq!(stack.t(), 4);
     }
 }
 // LCOV_EXCL_STOP
