@@ -4,14 +4,13 @@ use crate::traits::BasicStackOperations;
 use num_traits::identities::zero;
 use num_traits::Num;
 
-impl<T: Copy> ClassicStack<T> {
+impl<T: Clone> ClassicStack<T> {
     pub(super) fn move_down_after_binop(&mut self) {
-        self.y = self.z;
-        self.z = self.t;
+        self.y = std::mem::replace(&mut self.z, self.t.clone());
     }
 }
 
-impl<T: Num + Copy> BasicStackOperations for ClassicStack<T> {
+impl<T: Num + Clone> BasicStackOperations for ClassicStack<T> {
     type Elem = T;
 
     /// Drop the X register, shifting other registers down and copying the T register.
@@ -30,25 +29,19 @@ impl<T: Num + Copy> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(stack.t(), 4);
     /// ```
     fn drop(&mut self) {
-        self.x = self.y;
-        self.y = self.z;
-        self.z = self.t;
+        self.x = std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone()));
     }
 
     fn rotate_up(&mut self) {
-        let tmp = self.t;
-        self.t = self.z;
-        self.z = self.y;
-        self.y = self.x;
-        self.x = tmp;
+        std::mem::swap(&mut self.x, &mut self.y);
+        std::mem::swap(&mut self.x, &mut self.z);
+        std::mem::swap(&mut self.x, &mut self.t);
     }
 
     fn rotate_down(&mut self) {
-        let tmp = self.x;
-        self.x = self.y;
-        self.y = self.z;
-        self.z = self.t;
-        self.t = tmp;
+        std::mem::swap(&mut self.x, &mut self.t);
+        std::mem::swap(&mut self.x, &mut self.z);
+        std::mem::swap(&mut self.x, &mut self.y);
     }
 
     fn swap(&mut self) {
@@ -56,14 +49,17 @@ impl<T: Num + Copy> BasicStackOperations for ClassicStack<T> {
     }
 
     fn pop(&mut self) -> Self::Elem {
-        let tmp = self.x;
-        self.drop();
-        tmp
+        std::mem::replace(
+            &mut self.x,
+            std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone())),
+        )
     }
 
     fn push(&mut self, new: Self::Elem) {
-        self.rotate_up();
-        self.x = new;
+        self.t = std::mem::replace(
+            &mut self.z,
+            std::mem::replace(&mut self.y, std::mem::replace(&mut self.x, new)),
+        );
     }
 
     fn clear(&mut self) {
