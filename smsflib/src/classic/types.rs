@@ -10,12 +10,14 @@ pub struct ClassicStack<T> {
     pub(super) t: T,
 }
 
-impl<T: Num> ClassicStack<T> {
+impl<T> ClassicStack<T> {
     pub fn new(x: T, y: T, z: T, t: T) -> Self {
         ClassicStack { x, y, z, t }
     }
+}
 
-    pub fn new_empty() -> Self {
+impl<T: Num> ClassicStack<T> {
+    pub fn new_zero() -> Self {
         ClassicStack {
             x: zero(),
             y: zero(),

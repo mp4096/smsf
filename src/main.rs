@@ -28,7 +28,7 @@ fn main() {
     stack.push(4);
     println!("After pushing 4:\n{}", stack);
 
-    let mut stack = ClassicStack::<f64>::new_empty();
+    let mut stack = ClassicStack::<f64>::new_zero();
     stack.push(10.0);
     println!("After pushing 10.0:\n{}", stack);
     stack.ln();
