@@ -1,16 +1,13 @@
 use super::ClassicStack;
 use crate::traits::BasicStackOperations;
 
-use num_traits::identities::zero;
-use num_traits::Num;
-
 impl<T: Clone> ClassicStack<T> {
     pub(super) fn move_down_after_binop(&mut self) {
         self.y = std::mem::replace(&mut self.z, self.t.clone());
     }
 }
 
-impl<T: Num + Clone> BasicStackOperations for ClassicStack<T> {
+impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     type Elem = T;
 
     /// Drop the X register, shifting other registers down and copying the T register.
@@ -82,6 +79,7 @@ impl<T: Num + Clone> BasicStackOperations for ClassicStack<T> {
     }
 
     fn clear(&mut self) {
+        use num_traits::identities::zero;
         self.x = zero();
         self.y = zero();
         self.z = zero();
