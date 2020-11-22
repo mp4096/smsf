@@ -11,7 +11,7 @@ pub trait BasicStackOperations {
 
     fn pop(&mut self) -> Option<Self::Elem>;
 
-    fn push(&mut self, new: Self::Elem);
+    fn push(&mut self, value: Self::Elem);
 
     fn clear(&mut self);
 }

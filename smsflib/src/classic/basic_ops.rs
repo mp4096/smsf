@@ -74,10 +74,10 @@ impl<T: Num + Clone> BasicStackOperations for ClassicStack<T> {
         ))
     }
 
-    fn push(&mut self, new: Self::Elem) {
+    fn push(&mut self, value: Self::Elem) {
         self.t = std::mem::replace(
             &mut self.z,
-            std::mem::replace(&mut self.y, std::mem::replace(&mut self.x, new)),
+            std::mem::replace(&mut self.y, std::mem::replace(&mut self.x, value)),
         );
     }
 
