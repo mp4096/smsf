@@ -48,11 +48,30 @@ impl<T: Num + Clone> BasicStackOperations for ClassicStack<T> {
         std::mem::swap(&mut self.x, &mut self.y);
     }
 
-    fn pop(&mut self) -> Self::Elem {
-        std::mem::replace(
+    /// Pop a value from the X register, shifting other registers down and copying the T register.
+    ///
+    /// ClassicStack will always return a value, signature has an Option since the infinite stack
+    /// can be empty.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// let res = stack.pop();
+    ///
+    /// assert_eq!(res, Some(1));
+    /// assert_eq!(stack.x(), 2);
+    /// assert_eq!(stack.y(), 3);
+    /// assert_eq!(stack.z(), 4);
+    /// assert_eq!(stack.t(), 4);
+    /// ```
+    fn pop(&mut self) -> Option<Self::Elem> {
+        Some(std::mem::replace(
             &mut self.x,
             std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone())),
-        )
+        ))
     }
 
     fn push(&mut self, new: Self::Elem) {

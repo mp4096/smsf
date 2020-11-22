@@ -9,7 +9,7 @@ pub trait BasicStackOperations {
 
     fn swap(&mut self);
 
-    fn pop(&mut self) -> Self::Elem;
+    fn pop(&mut self) -> Option<Self::Elem>;
 
     fn push(&mut self, new: Self::Elem);
 
