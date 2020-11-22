@@ -14,6 +14,10 @@ pub trait BasicStackOperations {
     fn push(&mut self, value: Self::Elem);
 
     fn clear(&mut self);
+
+    fn unary_op_inplace<U: FnOnce(&mut Self::Elem)>(&mut self, unary_fn: U);
+
+    fn binary_op_inplace<U: FnOnce(&mut Self::Elem, &Self::Elem)>(&mut self, binary_fn: U);
 }
 
 pub trait BasicMathOperations {

@@ -85,6 +85,14 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         self.z = zero();
         self.t = zero();
     }
+
+    fn unary_op_inplace<U: FnOnce(&mut Self::Elem)>(&mut self, unary_fn: U) {
+        unary_fn(&mut self.x);
+    }
+
+    fn binary_op_inplace<U: FnOnce(&mut Self::Elem, &Self::Elem)>(&mut self, binary_fn: U) {
+        binary_fn(&mut self.x, &self.y);
+    }
 }
 
 // LCOV_EXCL_START
