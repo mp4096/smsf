@@ -1,9 +1,9 @@
 use super::ClassicStack;
 use crate::traits::BasicMathOperations;
 
-use num_traits::{Num, NumAssignOps, Signed};
-
-impl<T: Num + NumAssignOps + Copy + Signed> BasicMathOperations for ClassicStack<T> {
+impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperations
+    for ClassicStack<T>
+{
     /// # Example
     ///
     /// ```
