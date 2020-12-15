@@ -10,7 +10,7 @@ impl<T: Clone> ClassicStack<T> {
 impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     type Elem = T;
 
-    /// Drop the X register, shifting other registers down and copying the T register.
+    /// Drop the X register, shifting other registers down and cloning the T register.
     ///
     /// ```text
     /// T───┬─T
@@ -124,7 +124,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         std::mem::swap(&mut self.x, &mut self.y);
     }
 
-    /// Swap the two lower elements in stack:
+    /// Swap the X and Y registers.
     ///
     /// ```text
     ///  T───T
@@ -166,7 +166,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         std::mem::swap(&mut self.x, &mut self.y);
     }
 
-    /// Pop a value from the X register, shifting other registers down and copying the T register.
+    /// Pop a value from the X register, shifting other registers down and cloning the T register.
     ///
     /// ClassicStack will always return a value, signature has an Option since the infinite stack
     /// can be empty.
@@ -207,7 +207,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         self.t = zero();
     }
 
-    /// Appy a unary operation to the lowest stack element in-place.
+    /// Appy a unary operation to the X register in-place.
     ///
     /// # Example
     ///
@@ -226,8 +226,8 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         unary_fn(&mut self.x);
     }
 
-    /// Appy a binary operation to the lower stack elements, consuming X and Y.
-    /// Leave the result in X, shift other registers down, copying the T register.
+    /// Appy a binary operation to the X and Y registers, consuming them.
+    /// Leave the result in X, shift other registers down, cloning the T register.
     ///
     /// # Example
     ///
