@@ -192,6 +192,21 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         ))
     }
 
+    /// Move a value into the X register, dropping the T register.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// stack.push(10);
+    ///
+    /// assert_eq!(stack.x(), 10);
+    /// assert_eq!(stack.y(), 1);
+    /// assert_eq!(stack.z(), 2);
+    /// assert_eq!(stack.t(), 3);
+    /// ```
     fn push(&mut self, value: Self::Elem) {
         self.t = std::mem::replace(
             &mut self.z,
@@ -199,6 +214,21 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         );
     }
 
+    /// Set all registers to zero.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// stack.clear();
+    ///
+    /// assert_eq!(stack.x(), 0);
+    /// assert_eq!(stack.y(), 0);
+    /// assert_eq!(stack.z(), 0);
+    /// assert_eq!(stack.t(), 0);
+    /// ```
     fn clear(&mut self) {
         use num_traits::identities::zero;
         self.x = zero();
