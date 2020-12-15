@@ -207,6 +207,21 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         self.t = zero();
     }
 
+    /// Appy a unary operation to the lowest stack element in-place.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// stack.unary_op_inplace(|x: &mut u32| {*x += 10; } );
+    ///
+    /// assert_eq!(stack.x(), 11);
+    /// assert_eq!(stack.y(), 2);
+    /// assert_eq!(stack.z(), 3);
+    /// assert_eq!(stack.t(), 4);
+    /// ```
     fn unary_op_inplace<U: FnOnce(&mut Self::Elem)>(&mut self, unary_fn: U) {
         unary_fn(&mut self.x);
     }
