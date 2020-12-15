@@ -211,7 +211,24 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         unary_fn(&mut self.x);
     }
 
+    /// Appy a binary operation to the lower stack elements, consuming X and Y.
+    /// Leave the result in X, shift other registers down, copying the T register.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(10, 20, 3, 4);
+    /// stack.binary_op_inplace(|x: &mut u32, y: &u32| {*x += *y; } );
+    ///
+    /// assert_eq!(stack.x(), 30);
+    /// assert_eq!(stack.y(), 3);
+    /// assert_eq!(stack.z(), 4);
+    /// assert_eq!(stack.t(), 4);
+    /// ```
     fn binary_op_inplace<U: FnOnce(&mut Self::Elem, &Self::Elem)>(&mut self, binary_fn: U) {
         binary_fn(&mut self.x, &self.y);
+        self.y = std::mem::replace(&mut self.z, self.t.clone());
     }
 }
