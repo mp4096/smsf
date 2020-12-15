@@ -1,5 +1,3 @@
-use num_traits::identities::zero;
-use num_traits::Num;
 use std::fmt;
 
 #[derive(Debug)]
@@ -16,8 +14,9 @@ impl<T> ClassicStack<T> {
     }
 }
 
-impl<T: Num> ClassicStack<T> {
+impl<T: num_traits::Zero> ClassicStack<T> {
     pub fn new_zero() -> Self {
+        use num_traits::identities::zero;
         ClassicStack {
             x: zero(),
             y: zero(),
