@@ -12,6 +12,13 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
 
     /// Drop the X register, shifting other registers down and copying the T register.
     ///
+    /// ```text
+    /// T───┬─T
+    /// Z──╮╰─T
+    /// Y─╮╰──Z
+    /// X ╰───Y
+    /// ```
+    ///
     /// # Example
     ///
     /// ```
@@ -29,18 +36,132 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         self.x = std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone()));
     }
 
+    /// Rotate stack up:
+    ///
+    /// ```text
+    /// ╭─T ╭───Y
+    /// │ Z─╯╭──Z
+    /// │ Y──╯╭─X
+    /// │ X───╯ Y
+    /// ╰───────╯
+    /// ```
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// stack.rotate_up();
+    ///
+    /// assert_eq!(stack.x(), 4);
+    /// assert_eq!(stack.y(), 1);
+    /// assert_eq!(stack.z(), 2);
+    /// assert_eq!(stack.t(), 3);
+    /// ```
+    ///
+    /// Four rotations in a row result in the same stack as before:
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// for x in 0..4 { stack.rotate_up(); }
+    ///
+    /// assert_eq!(stack.x(), 1);
+    /// assert_eq!(stack.y(), 2);
+    /// assert_eq!(stack.z(), 3);
+    /// assert_eq!(stack.t(), 4);
+    /// ```
+    ///
     fn rotate_up(&mut self) {
         std::mem::swap(&mut self.x, &mut self.y);
         std::mem::swap(&mut self.x, &mut self.z);
         std::mem::swap(&mut self.x, &mut self.t);
     }
 
+    /// Rotate stack down:
+    ///
+    /// ```text
+    /// ╭───────╮
+    /// │ T───╮ X
+    /// │ Z──╮╰─T
+    /// │ Y─╮╰──Z
+    /// ╰─X ╰───Y
+    /// ```
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// stack.rotate_down();
+    ///
+    /// assert_eq!(stack.x(), 2);
+    /// assert_eq!(stack.y(), 3);
+    /// assert_eq!(stack.z(), 4);
+    /// assert_eq!(stack.t(), 1);
+    /// ```
+    ///
+    /// Four rotations in a row result in the same stack as before:
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// for x in 0..4 { stack.rotate_down(); }
+    ///
+    /// assert_eq!(stack.x(), 1);
+    /// assert_eq!(stack.y(), 2);
+    /// assert_eq!(stack.z(), 3);
+    /// assert_eq!(stack.t(), 4);
+    /// ```
+    ///
     fn rotate_down(&mut self) {
         std::mem::swap(&mut self.x, &mut self.t);
         std::mem::swap(&mut self.x, &mut self.z);
         std::mem::swap(&mut self.x, &mut self.y);
     }
 
+    /// Swap the two lower elements in stack:
+    ///
+    /// ```text
+    ///  T───T
+    ///  Z───Z
+    ///  Y─╮ X─╮
+    ///  X ╰─Y │
+    ///  ╰─────╯
+    /// ```
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// stack.swap();
+    ///
+    /// assert_eq!(stack.x(), 2);
+    /// assert_eq!(stack.y(), 1);
+    /// assert_eq!(stack.z(), 3);
+    /// assert_eq!(stack.t(), 4);
+    /// ```
+    ///
+    /// Two swaps in a row result in the same stack as before:
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
+    /// for x in 0..2 { stack.swap(); }
+    ///
+    /// assert_eq!(stack.x(), 1);
+    /// assert_eq!(stack.y(), 2);
+    /// assert_eq!(stack.z(), 3);
+    /// assert_eq!(stack.t(), 4);
+    /// ```
+    ///
     fn swap(&mut self) {
         std::mem::swap(&mut self.x, &mut self.y);
     }
@@ -94,55 +215,3 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         binary_fn(&mut self.x, &self.y);
     }
 }
-
-// LCOV_EXCL_START
-#[cfg(test)]
-mod tests {
-    use super::BasicStackOperations;
-    use super::ClassicStack;
-
-    #[test]
-    fn test_drop() {
-        let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
-        stack.drop();
-
-        assert_eq!(stack.x(), 2);
-        assert_eq!(stack.y(), 3);
-        assert_eq!(stack.z(), 4);
-        assert_eq!(stack.t(), 4);
-    }
-
-    #[test]
-    fn test_rotate_down() {
-        let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
-        stack.rotate_down();
-
-        assert_eq!(stack.x(), 2);
-        assert_eq!(stack.y(), 3);
-        assert_eq!(stack.z(), 4);
-        assert_eq!(stack.t(), 1);
-    }
-
-    #[test]
-    fn test_rotate_up() {
-        let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
-        stack.rotate_up();
-
-        assert_eq!(stack.x(), 4);
-        assert_eq!(stack.y(), 1);
-        assert_eq!(stack.z(), 2);
-        assert_eq!(stack.t(), 3);
-    }
-
-    #[test]
-    fn test_swap() {
-        let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
-        stack.swap();
-
-        assert_eq!(stack.x(), 2);
-        assert_eq!(stack.y(), 1);
-        assert_eq!(stack.z(), 3);
-        assert_eq!(stack.t(), 4);
-    }
-}
-// LCOV_EXCL_STOP
