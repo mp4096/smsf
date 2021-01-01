@@ -1,4 +1,5 @@
 use super::ClassicStack;
+use crate::traits::BasicStackOperations;
 use crate::traits::LogExpOperations;
 
 use num_traits::Float;
@@ -19,8 +20,9 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn pow(&mut self) {
-        self.x = self.y.powf(self.x);
-        self.move_down_after_binop();
+        self.binary_op_inplace(|x: &mut T, y: &T| {
+            *x = y.powf(*x);
+        });
     }
 
     /// # Example
@@ -38,7 +40,9 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn ln(&mut self) {
-        self.x = self.x.ln();
+        self.unary_op_inplace(|x: &mut T| {
+            *x = x.ln();
+        });
     }
 
     /// # Example
@@ -56,7 +60,9 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn log2(&mut self) {
-        self.x = self.x.log2();
+        self.unary_op_inplace(|x: &mut T| {
+            *x = x.log2();
+        });
     }
 
     /// # Example
@@ -74,7 +80,9 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn log10(&mut self) {
-        self.x = self.x.log10();
+        self.unary_op_inplace(|x: &mut T| {
+            *x = x.log10();
+        });
     }
 
     /// # Example
@@ -92,7 +100,9 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn exp(&mut self) {
-        self.x = self.x.exp();
+        self.unary_op_inplace(|x: &mut T| {
+            *x = x.exp();
+        });
     }
 
     /// # Example
@@ -110,6 +120,8 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(stack.t(), 3.0);
     /// ```
     fn exp2(&mut self) {
-        self.x = self.x.exp2();
+        self.unary_op_inplace(|x: &mut T| {
+            *x = x.exp2();
+        });
     }
 }

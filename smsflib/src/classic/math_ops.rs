@@ -1,5 +1,6 @@
 use super::ClassicStack;
 use crate::traits::BasicMathOperations;
+use crate::traits::BasicStackOperations;
 
 impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperations
     for ClassicStack<T>
@@ -18,8 +19,9 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(stack.t(), 1);
     /// ```
     fn add(&mut self) {
-        self.x += self.y;
-        self.move_down_after_binop();
+        self.binary_op_inplace(|x: &mut T, y: &T| {
+            *x += *y;
+        });
     }
 
     /// # Example
@@ -36,8 +38,9 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(stack.t(), 1);
     /// ```
     fn subtract(&mut self) {
-        self.x -= self.y;
-        self.move_down_after_binop();
+        self.binary_op_inplace(|x: &mut T, y: &T| {
+            *x -= *y;
+        });
     }
 
     /// # Example
@@ -54,8 +57,9 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(stack.t(), 1);
     /// ```
     fn multiply(&mut self) {
-        self.x *= self.y;
-        self.move_down_after_binop();
+        self.binary_op_inplace(|x: &mut T, y: &T| {
+            *x *= *y;
+        });
     }
 
     /// # Example
@@ -72,8 +76,9 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(stack.t(), 1);
     /// ```
     fn divide(&mut self) {
-        self.x = self.y / self.x;
-        self.move_down_after_binop();
+        self.binary_op_inplace(|x: &mut T, y: &T| {
+            *x = *y / *x;
+        });
     }
 
     /// # Example
@@ -90,6 +95,8 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(stack.t(), 4);
     /// ```
     fn change_sign(&mut self) {
-        self.x = -self.x;
+        self.unary_op_inplace(|x: &mut T| {
+            *x = -(*x);
+        });
     }
 }

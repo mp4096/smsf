@@ -1,12 +1,6 @@
 use super::ClassicStack;
 use crate::traits::BasicStackOperations;
 
-impl<T: Clone> ClassicStack<T> {
-    pub(super) fn move_down_after_binop(&mut self) {
-        self.y = std::mem::replace(&mut self.z, self.t.clone());
-    }
-}
-
 impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     type Elem = T;
 
