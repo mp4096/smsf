@@ -99,4 +99,23 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
             *x = -(*x);
         });
     }
+
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<i32>::new(-1, -2, -3, -4);
+    /// stack.absolute_value();
+    ///
+    /// assert_eq!(stack.x(), 1);
+    /// assert_eq!(stack.y(), -2);
+    /// assert_eq!(stack.z(), -3);
+    /// assert_eq!(stack.t(), -4);
+    /// ```
+    fn absolute_value(&mut self) {
+        self.unary_op_inplace(|x: &mut T| {
+            *x = x.abs();
+        });
+    }
 }

@@ -30,6 +30,8 @@ pub trait BasicMathOperations {
     fn divide(&mut self);
 
     fn change_sign(&mut self);
+
+    fn absolute_value(&mut self);
 }
 
 pub trait LogExpOperations {
