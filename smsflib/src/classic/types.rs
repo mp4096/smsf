@@ -1,5 +1,3 @@
-use std::fmt;
-
 #[derive(Debug)]
 pub struct ClassicStack<T> {
     pub(super) x: T,
@@ -44,8 +42,8 @@ impl<T: Copy> ClassicStack<T> {
     }
 }
 
-impl<T: fmt::Display> fmt::Display for ClassicStack<T> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl<T: std::fmt::Display> std::fmt::Display for ClassicStack<T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
             "T: {}\nZ: {}\nY: {}\nX: {}\n",
