@@ -16,13 +16,29 @@ impl<T> ClassicStack<T> {
     ///
     /// let stack = ClassicStack::<i32>::new(1, 2, 3, 4);
     ///
-    /// assert_eq!(stack.x(), 1);
-    /// assert_eq!(stack.y(), 2);
-    /// assert_eq!(stack.z(), 3);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 1);
+    /// assert_eq!(*stack.y(), 2);
+    /// assert_eq!(*stack.z(), 3);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     pub fn new(x: T, y: T, z: T, t: T) -> Self {
         ClassicStack { x, y, z, t }
+    }
+
+    pub fn x(&self) -> &T {
+        &self.x
+    }
+
+    pub fn y(&self) -> &T {
+        &self.y
+    }
+
+    pub fn z(&self) -> &T {
+        &self.z
+    }
+
+    pub fn t(&self) -> &T {
+        &self.t
     }
 }
 
@@ -36,10 +52,10 @@ impl<T: num_traits::Zero> ClassicStack<T> {
     ///
     /// let stack = ClassicStack::<i32>::new_zero();
     ///
-    /// assert_eq!(stack.x(), 0);
-    /// assert_eq!(stack.y(), 0);
-    /// assert_eq!(stack.z(), 0);
-    /// assert_eq!(stack.t(), 0);
+    /// assert_eq!(*stack.x(), 0);
+    /// assert_eq!(*stack.y(), 0);
+    /// assert_eq!(*stack.z(), 0);
+    /// assert_eq!(*stack.t(), 0);
     /// ```
     pub fn new_zero() -> Self {
         use num_traits::identities::zero;
@@ -49,24 +65,6 @@ impl<T: num_traits::Zero> ClassicStack<T> {
             z: zero(),
             t: zero(),
         }
-    }
-}
-
-impl<T: Copy> ClassicStack<T> {
-    pub fn x(&self) -> T {
-        self.x
-    }
-
-    pub fn y(&self) -> T {
-        self.y
-    }
-
-    pub fn z(&self) -> T {
-        self.z
-    }
-
-    pub fn t(&self) -> T {
-        self.t
     }
 }
 

@@ -21,10 +21,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// stack.drop();
     ///
-    /// assert_eq!(stack.x(), 2);
-    /// assert_eq!(stack.y(), 3);
-    /// assert_eq!(stack.z(), 4);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 2);
+    /// assert_eq!(*stack.y(), 3);
+    /// assert_eq!(*stack.z(), 4);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     fn drop(&mut self) {
         self.x = std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone()));
@@ -48,10 +48,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// stack.rotate_up();
     ///
-    /// assert_eq!(stack.x(), 4);
-    /// assert_eq!(stack.y(), 1);
-    /// assert_eq!(stack.z(), 2);
-    /// assert_eq!(stack.t(), 3);
+    /// assert_eq!(*stack.x(), 4);
+    /// assert_eq!(*stack.y(), 1);
+    /// assert_eq!(*stack.z(), 2);
+    /// assert_eq!(*stack.t(), 3);
     /// ```
     ///
     /// Four rotations in a row result in the same stack as before:
@@ -62,10 +62,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// for x in 0..4 { stack.rotate_up(); }
     ///
-    /// assert_eq!(stack.x(), 1);
-    /// assert_eq!(stack.y(), 2);
-    /// assert_eq!(stack.z(), 3);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 1);
+    /// assert_eq!(*stack.y(), 2);
+    /// assert_eq!(*stack.z(), 3);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     ///
     fn rotate_up(&mut self) {
@@ -92,10 +92,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// stack.rotate_down();
     ///
-    /// assert_eq!(stack.x(), 2);
-    /// assert_eq!(stack.y(), 3);
-    /// assert_eq!(stack.z(), 4);
-    /// assert_eq!(stack.t(), 1);
+    /// assert_eq!(*stack.x(), 2);
+    /// assert_eq!(*stack.y(), 3);
+    /// assert_eq!(*stack.z(), 4);
+    /// assert_eq!(*stack.t(), 1);
     /// ```
     ///
     /// Four rotations in a row result in the same stack as before:
@@ -106,10 +106,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// for x in 0..4 { stack.rotate_down(); }
     ///
-    /// assert_eq!(stack.x(), 1);
-    /// assert_eq!(stack.y(), 2);
-    /// assert_eq!(stack.z(), 3);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 1);
+    /// assert_eq!(*stack.y(), 2);
+    /// assert_eq!(*stack.z(), 3);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     ///
     fn rotate_down(&mut self) {
@@ -136,10 +136,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// stack.swap();
     ///
-    /// assert_eq!(stack.x(), 2);
-    /// assert_eq!(stack.y(), 1);
-    /// assert_eq!(stack.z(), 3);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 2);
+    /// assert_eq!(*stack.y(), 1);
+    /// assert_eq!(*stack.z(), 3);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     ///
     /// Two swaps in a row result in the same stack as before:
@@ -150,10 +150,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// for x in 0..2 { stack.swap(); }
     ///
-    /// assert_eq!(stack.x(), 1);
-    /// assert_eq!(stack.y(), 2);
-    /// assert_eq!(stack.z(), 3);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 1);
+    /// assert_eq!(*stack.y(), 2);
+    /// assert_eq!(*stack.z(), 3);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     ///
     fn swap(&mut self) {
@@ -174,10 +174,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let res = stack.pop();
     ///
     /// assert_eq!(res, Some(1));
-    /// assert_eq!(stack.x(), 2);
-    /// assert_eq!(stack.y(), 3);
-    /// assert_eq!(stack.z(), 4);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 2);
+    /// assert_eq!(*stack.y(), 3);
+    /// assert_eq!(*stack.z(), 4);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     fn pop(&mut self) -> Option<Self::Elem> {
         Some(std::mem::replace(
@@ -196,10 +196,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// stack.push(10);
     ///
-    /// assert_eq!(stack.x(), 10);
-    /// assert_eq!(stack.y(), 1);
-    /// assert_eq!(stack.z(), 2);
-    /// assert_eq!(stack.t(), 3);
+    /// assert_eq!(*stack.x(), 10);
+    /// assert_eq!(*stack.y(), 1);
+    /// assert_eq!(*stack.z(), 2);
+    /// assert_eq!(*stack.t(), 3);
     /// ```
     fn push(&mut self, value: Self::Elem) {
         self.t = std::mem::replace(
@@ -218,10 +218,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// stack.clear();
     ///
-    /// assert_eq!(stack.x(), 0);
-    /// assert_eq!(stack.y(), 0);
-    /// assert_eq!(stack.z(), 0);
-    /// assert_eq!(stack.t(), 0);
+    /// assert_eq!(*stack.x(), 0);
+    /// assert_eq!(*stack.y(), 0);
+    /// assert_eq!(*stack.z(), 0);
+    /// assert_eq!(*stack.t(), 0);
     /// ```
     fn clear(&mut self) {
         use num_traits::identities::zero;
@@ -241,10 +241,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
     /// stack.unary_op_inplace(|x: &mut u32| {*x += 10; } );
     ///
-    /// assert_eq!(stack.x(), 11);
-    /// assert_eq!(stack.y(), 2);
-    /// assert_eq!(stack.z(), 3);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 11);
+    /// assert_eq!(*stack.y(), 2);
+    /// assert_eq!(*stack.z(), 3);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     fn unary_op_inplace<U: FnOnce(&mut Self::Elem)>(&mut self, unary_fn: U) {
         unary_fn(&mut self.x);
@@ -261,10 +261,10 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// let mut stack = ClassicStack::<u32>::new(10, 20, 3, 4);
     /// stack.binary_op_inplace(|x: &mut u32, y: &u32| {*x += *y; } );
     ///
-    /// assert_eq!(stack.x(), 30);
-    /// assert_eq!(stack.y(), 3);
-    /// assert_eq!(stack.z(), 4);
-    /// assert_eq!(stack.t(), 4);
+    /// assert_eq!(*stack.x(), 30);
+    /// assert_eq!(*stack.y(), 3);
+    /// assert_eq!(*stack.z(), 4);
+    /// assert_eq!(*stack.t(), 4);
     /// ```
     fn binary_op_inplace<U: FnOnce(&mut Self::Elem, &Self::Elem)>(&mut self, binary_fn: U) {
         binary_fn(&mut self.x, &self.y);
