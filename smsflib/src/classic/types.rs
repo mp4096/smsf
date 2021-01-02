@@ -25,18 +25,62 @@ impl<T> ClassicStack<T> {
         ClassicStack { x, y, z, t }
     }
 
+    /// Get the X register per reference
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let stack = ClassicStack::<i32>::new(1, 2, 3, 4);
+    ///
+    /// assert_eq!(*stack.x(), 1);
+    /// ```
     pub fn x(&self) -> &T {
         &self.x
     }
 
+    /// Get the Y register per reference
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let stack = ClassicStack::<i32>::new(1, 2, 3, 4);
+    ///
+    /// assert_eq!(*stack.y(), 2);
+    /// ```
     pub fn y(&self) -> &T {
         &self.y
     }
 
+    /// Get the Z register per reference
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let stack = ClassicStack::<i32>::new(1, 2, 3, 4);
+    ///
+    /// assert_eq!(*stack.z(), 3);
+    /// ```
     pub fn z(&self) -> &T {
         &self.z
     }
 
+    /// Get the T register per reference
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let stack = ClassicStack::<i32>::new(1, 2, 3, 4);
+    ///
+    /// assert_eq!(*stack.t(), 4);
+    /// ```
     pub fn t(&self) -> &T {
         &self.t
     }
