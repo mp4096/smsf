@@ -7,12 +7,40 @@ pub struct ClassicStack<T> {
 }
 
 impl<T> ClassicStack<T> {
+    /// Create a new stack with given values
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let stack = ClassicStack::<i32>::new(1, 2, 3, 4);
+    ///
+    /// assert_eq!(stack.x(), 1);
+    /// assert_eq!(stack.y(), 2);
+    /// assert_eq!(stack.z(), 3);
+    /// assert_eq!(stack.t(), 4);
+    /// ```
     pub fn new(x: T, y: T, z: T, t: T) -> Self {
         ClassicStack { x, y, z, t }
     }
 }
 
 impl<T: num_traits::Zero> ClassicStack<T> {
+    /// Create a new stack filled with zero values
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let stack = ClassicStack::<i32>::new_zero();
+    ///
+    /// assert_eq!(stack.x(), 0);
+    /// assert_eq!(stack.y(), 0);
+    /// assert_eq!(stack.z(), 0);
+    /// assert_eq!(stack.t(), 0);
+    /// ```
     pub fn new_zero() -> Self {
         use num_traits::identities::zero;
         ClassicStack {
