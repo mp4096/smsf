@@ -9,7 +9,6 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// use smsflib::prelude::*;
     /// use assert_approx_eq::assert_approx_eq;
     ///
-    ///
     /// let mut stack = ClassicStack::<f64>::new(std::f64::consts::FRAC_PI_6, 1.0, 2.0, 3.0);
     /// stack.sin();
     ///
