@@ -7,8 +7,7 @@ mod types;
 
 pub use types::ClassicStack;
 
-impl<T: num_traits::Float> crate::traits::LogExpOperations for ClassicStack<T> {}
-impl<T: num_traits::Float> crate::traits::TrigOperations for ClassicStack<T> {}
+impl<T: num_traits::Float> crate::traits::FloatMathOperations for ClassicStack<T> {}
 impl<T: Clone + num_traits::NumAssignRef + num_traits::Signed> crate::traits::BasicMathOperations
     for ClassicStack<T>
 {
