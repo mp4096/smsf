@@ -1,4 +1,5 @@
 use super::ClassicStack;
+use crate::error::Error as SmsfError;
 use crate::traits::BasicStackOperations;
 use crate::traits::LogExpOperations;
 
@@ -19,10 +20,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 3.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn pow(&mut self) {
+    fn pow(&mut self) -> Result<(), SmsfError> {
         self.binary_op_inplace_first_arg(|x: &mut T, y: &T| {
             *x = y.powf(*x);
-        });
+        })
     }
 
     /// # Example
@@ -39,10 +40,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn ln(&mut self) {
+    fn ln(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.ln();
-        });
+        })
     }
 
     /// # Example
@@ -59,10 +60,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn log2(&mut self) {
+    fn log2(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.log2();
-        });
+        })
     }
 
     /// # Example
@@ -79,10 +80,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn log10(&mut self) {
+    fn log10(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.log10();
-        });
+        })
     }
 
     /// # Example
@@ -99,10 +100,10 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn exp(&mut self) {
+    fn exp(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.exp();
-        });
+        })
     }
 
     /// # Example
@@ -119,9 +120,9 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn exp2(&mut self) {
+    fn exp2(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.exp2();
-        });
+        })
     }
 }

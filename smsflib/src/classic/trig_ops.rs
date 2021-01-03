@@ -1,4 +1,5 @@
 use super::ClassicStack;
+use crate::error::Error as SmsfError;
 use crate::traits::BasicStackOperations;
 use crate::traits::TrigOperations;
 
@@ -17,10 +18,10 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn sin(&mut self) {
+    fn sin(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.sin();
-        });
+        })
     }
 
     /// # Example
@@ -37,10 +38,10 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn cos(&mut self) {
+    fn cos(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.cos();
-        });
+        })
     }
 
     /// # Example
@@ -57,10 +58,10 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn tan(&mut self) {
+    fn tan(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.tan();
-        });
+        })
     }
 
     /// # Example
@@ -77,10 +78,10 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn asin(&mut self) {
+    fn asin(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.asin();
-        });
+        })
     }
 
     /// # Example
@@ -97,10 +98,10 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn acos(&mut self) {
+    fn acos(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.acos();
-        });
+        })
     }
 
     /// # Example
@@ -117,10 +118,10 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn atan(&mut self) {
+    fn atan(&mut self) -> Result<(), SmsfError> {
         self.unary_op_inplace(|x: &mut T| {
             *x = x.atan();
-        });
+        })
     }
 
     /// # Example
@@ -137,9 +138,9 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 3.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn atan2(&mut self) {
+    fn atan2(&mut self) -> Result<(), SmsfError> {
         self.binary_op_inplace_first_arg(|x: &mut T, y: &T| {
             *x = y.atan2(*x);
-        });
+        })
     }
 }
