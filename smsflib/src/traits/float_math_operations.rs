@@ -1,10 +1,10 @@
 use crate::error::Error as SmsfError;
-use crate::traits::BasicStackOperations;
+use crate::traits::InPlaceFnApplication;
 use num_traits::Float;
 
-pub trait FloatMathOperations: BasicStackOperations
+pub trait FloatMathOperations: InPlaceFnApplication
 where
-    <Self as BasicStackOperations>::Elem: num_traits::Float,
+    <Self as InPlaceFnApplication>::Elem: num_traits::Float,
 {
     /// # Example
     ///
@@ -21,9 +21,9 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn pow(&mut self) -> Result<(), SmsfError> {
-        self.binary_op_inplace_first_arg(
-            |x: &mut <Self as BasicStackOperations>::Elem,
-             y: &<Self as BasicStackOperations>::Elem| {
+        self.binary_fn_in_place_first_arg(
+            |x: &mut <Self as InPlaceFnApplication>::Elem,
+             y: &<Self as InPlaceFnApplication>::Elem| {
                 *x = y.powf(*x);
             },
         )
@@ -44,7 +44,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn ln(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.ln();
         })
     }
@@ -64,7 +64,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn log2(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.log2();
         })
     }
@@ -84,7 +84,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn log10(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.log10();
         })
     }
@@ -104,7 +104,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn exp(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.exp();
         })
     }
@@ -124,7 +124,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn exp2(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.exp2();
         })
     }
@@ -144,7 +144,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn sin(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.sin();
         })
     }
@@ -164,7 +164,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn cos(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.cos();
         })
     }
@@ -184,7 +184,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn tan(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.tan();
         })
     }
@@ -204,7 +204,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn asin(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.asin();
         })
     }
@@ -224,7 +224,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn acos(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.acos();
         })
     }
@@ -244,7 +244,7 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn atan(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.atan();
         })
     }
@@ -264,9 +264,9 @@ where
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn atan2(&mut self) -> Result<(), SmsfError> {
-        self.binary_op_inplace_first_arg(
-            |x: &mut <Self as BasicStackOperations>::Elem,
-             y: &<Self as BasicStackOperations>::Elem| {
+        self.binary_fn_in_place_first_arg(
+            |x: &mut <Self as InPlaceFnApplication>::Elem,
+             y: &<Self as InPlaceFnApplication>::Elem| {
                 *x = y.atan2(*x);
             },
         )

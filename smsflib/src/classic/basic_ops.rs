@@ -1,6 +1,7 @@
 use super::ClassicStack;
 use crate::error::Error as SmsfError;
 use crate::traits::BasicStackOperations;
+use crate::traits::InPlaceFnApplication;
 
 impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// # Note
@@ -261,7 +262,13 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
         self.t = zero();
         Ok(())
     }
+}
 
+impl<T: Clone> InPlaceFnApplication for ClassicStack<T> {
+    /// # Note
+    /// All functions always return [Ok], since the stack has fixed size.
+
+    type Elem = T;
     /// Appy a unary operation to the X register in-place.
     ///
     /// # Example
@@ -270,7 +277,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// use smsflib::prelude::*;
     ///
     /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
-    /// let res = stack.unary_op_inplace(|x: &mut u32| {*x += 10; } );
+    /// let res = stack.unary_fn_in_place(|x: &mut u32| {*x += 10; } );
     ///
     /// assert_eq!(res, Ok(()));
     ///
@@ -279,7 +286,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 3);
     /// assert_eq!(*stack.t(), 4);
     /// ```
-    fn unary_op_inplace<U: FnOnce(&mut Self::Elem)>(
+    fn unary_fn_in_place<U: FnOnce(&mut Self::Elem)>(
         &mut self,
         unary_fn: U,
     ) -> Result<(), SmsfError> {
@@ -296,7 +303,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// use smsflib::prelude::*;
     ///
     /// let mut stack = ClassicStack::<u32>::new(100, 10, 3, 4);
-    /// let res = stack.binary_op_inplace_first_arg(|x: &mut u32, y: &u32| {*x -= y; } );
+    /// let res = stack.binary_fn_in_place_first_arg(|x: &mut u32, y: &u32| {*x -= y; } );
     ///
     /// assert_eq!(res, Ok(()));
     ///
@@ -305,7 +312,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 4);
     /// assert_eq!(*stack.t(), 4);
     /// ```
-    fn binary_op_inplace_first_arg<U: FnOnce(&mut Self::Elem, &Self::Elem)>(
+    fn binary_fn_in_place_first_arg<U: FnOnce(&mut Self::Elem, &Self::Elem)>(
         &mut self,
         binary_fn: U,
     ) -> Result<(), SmsfError> {
@@ -323,7 +330,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// use smsflib::prelude::*;
     ///
     /// let mut stack = ClassicStack::<u32>::new(10, 100, 3, 4);
-    /// let res = stack.binary_op_inplace_second_arg(|x: &u32, y: &mut u32| {*y -= x; } );
+    /// let res = stack.binary_fn_in_place_second_arg(|x: &u32, y: &mut u32| {*y -= x; } );
     ///
     /// assert_eq!(res, Ok(()));
     ///
@@ -332,7 +339,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 4);
     /// assert_eq!(*stack.t(), 4);
     /// ```
-    fn binary_op_inplace_second_arg<U: FnOnce(&Self::Elem, &mut Self::Elem)>(
+    fn binary_fn_in_place_second_arg<U: FnOnce(&Self::Elem, &mut Self::Elem)>(
         &mut self,
         binary_fn: U,
     ) -> Result<(), SmsfError> {

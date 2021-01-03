@@ -1,2 +1,4 @@
 pub use crate::classic::ClassicStack;
-pub use crate::traits::{BasicMathOperations, BasicStackOperations, FloatMathOperations};
+pub use crate::traits::{
+    BasicMathOperations, BasicStackOperations, FloatMathOperations, InPlaceFnApplication,
+};

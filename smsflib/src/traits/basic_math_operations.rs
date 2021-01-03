@@ -1,10 +1,10 @@
 use crate::error::Error as SmsfError;
-use crate::traits::BasicStackOperations;
+use crate::traits::InPlaceFnApplication;
 use num_traits::Signed;
 
-pub trait BasicMathOperations: BasicStackOperations
+pub trait BasicMathOperations: InPlaceFnApplication
 where
-    <Self as BasicStackOperations>::Elem: Clone + num_traits::NumAssignRef + num_traits::Signed,
+    <Self as InPlaceFnApplication>::Elem: Clone + num_traits::NumAssignRef + num_traits::Signed,
 {
     /// # Example
     ///
@@ -20,9 +20,9 @@ where
     /// assert_eq!(*stack.t(), 1);
     /// ```
     fn add(&mut self) -> Result<(), SmsfError> {
-        self.binary_op_inplace_first_arg(
-            |x: &mut <Self as BasicStackOperations>::Elem,
-             y: &<Self as BasicStackOperations>::Elem| {
+        self.binary_fn_in_place_first_arg(
+            |x: &mut <Self as InPlaceFnApplication>::Elem,
+             y: &<Self as InPlaceFnApplication>::Elem| {
                 *x += y;
             },
         )
@@ -42,9 +42,9 @@ where
     /// assert_eq!(*stack.t(), 1);
     /// ```
     fn subtract(&mut self) -> Result<(), SmsfError> {
-        self.binary_op_inplace_first_arg(
-            |x: &mut <Self as BasicStackOperations>::Elem,
-             y: &<Self as BasicStackOperations>::Elem| {
+        self.binary_fn_in_place_first_arg(
+            |x: &mut <Self as InPlaceFnApplication>::Elem,
+             y: &<Self as InPlaceFnApplication>::Elem| {
                 *x -= y;
             },
         )
@@ -64,9 +64,9 @@ where
     /// assert_eq!(*stack.t(), 1);
     /// ```
     fn multiply(&mut self) -> Result<(), SmsfError> {
-        self.binary_op_inplace_first_arg(
-            |x: &mut <Self as BasicStackOperations>::Elem,
-             y: &<Self as BasicStackOperations>::Elem| {
+        self.binary_fn_in_place_first_arg(
+            |x: &mut <Self as InPlaceFnApplication>::Elem,
+             y: &<Self as InPlaceFnApplication>::Elem| {
                 *x *= y;
             },
         )
@@ -86,9 +86,9 @@ where
     /// assert_eq!(*stack.t(), 1);
     /// ```
     fn divide(&mut self) -> Result<(), SmsfError> {
-        self.binary_op_inplace_second_arg(
-            |x: &<Self as BasicStackOperations>::Elem,
-             y: &mut <Self as BasicStackOperations>::Elem| {
+        self.binary_fn_in_place_second_arg(
+            |x: &<Self as InPlaceFnApplication>::Elem,
+             y: &mut <Self as InPlaceFnApplication>::Elem| {
                 *y /= x;
             },
         )
@@ -108,7 +108,7 @@ where
     /// assert_eq!(*stack.t(), 4);
     /// ```
     fn change_sign(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = -x.clone();
         })
     }
@@ -127,7 +127,7 @@ where
     /// assert_eq!(*stack.t(), -4);
     /// ```
     fn absolute_value(&mut self) -> Result<(), SmsfError> {
-        self.unary_op_inplace(|x: &mut <Self as BasicStackOperations>::Elem| {
+        self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.abs();
         })
     }
