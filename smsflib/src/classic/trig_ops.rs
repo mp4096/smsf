@@ -138,7 +138,7 @@ impl<T: num_traits::Float> TrigOperations for ClassicStack<T> {
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn atan2(&mut self) {
-        self.binary_op_inplace(|x: &mut T, y: &T| {
+        self.binary_op_inplace_first_arg(|x: &mut T, y: &T| {
             *x = y.atan2(*x);
         });
     }

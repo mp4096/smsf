@@ -258,16 +258,43 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// ```
     /// use smsflib::prelude::*;
     ///
-    /// let mut stack = ClassicStack::<u32>::new(10, 20, 3, 4);
-    /// stack.binary_op_inplace(|x: &mut u32, y: &u32| {*x += *y; } );
+    /// let mut stack = ClassicStack::<u32>::new(100, 10, 3, 4);
+    /// stack.binary_op_inplace_first_arg(|x: &mut u32, y: &u32| {*x -= y; } );
     ///
-    /// assert_eq!(*stack.x(), 30);
+    /// assert_eq!(*stack.x(), 90);
     /// assert_eq!(*stack.y(), 3);
     /// assert_eq!(*stack.z(), 4);
     /// assert_eq!(*stack.t(), 4);
     /// ```
-    fn binary_op_inplace<U: FnOnce(&mut Self::Elem, &Self::Elem)>(&mut self, binary_fn: U) {
+    fn binary_op_inplace_first_arg<U: FnOnce(&mut Self::Elem, &Self::Elem)>(
+        &mut self,
+        binary_fn: U,
+    ) {
         binary_fn(&mut self.x, &self.y);
         self.y = std::mem::replace(&mut self.z, self.t.clone());
+    }
+
+    /// Appy a binary operation to the X and Y registers, consuming them.
+    /// Leave the result in X, shift other registers down, cloning the T register.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = ClassicStack::<u32>::new(10, 100, 3, 4);
+    /// stack.binary_op_inplace_second_arg(|x: &u32, y: &mut u32| {*y -= x; } );
+    ///
+    /// assert_eq!(*stack.x(), 90);
+    /// assert_eq!(*stack.y(), 3);
+    /// assert_eq!(*stack.z(), 4);
+    /// assert_eq!(*stack.t(), 4);
+    /// ```
+    fn binary_op_inplace_second_arg<U: FnOnce(&Self::Elem, &mut Self::Elem)>(
+        &mut self,
+        binary_fn: U,
+    ) {
+        binary_fn(&self.x, &mut self.y);
+        self.x = std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone()));
     }
 }

@@ -2,7 +2,7 @@ use super::ClassicStack;
 use crate::traits::BasicMathOperations;
 use crate::traits::BasicStackOperations;
 
-impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperations
+impl<T: Clone + num_traits::NumAssignRef + num_traits::Signed> BasicMathOperations
     for ClassicStack<T>
 {
     /// # Example
@@ -19,8 +19,8 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(*stack.t(), 1);
     /// ```
     fn add(&mut self) {
-        self.binary_op_inplace(|x: &mut T, y: &T| {
-            *x += *y;
+        self.binary_op_inplace_first_arg(|x: &mut T, y: &T| {
+            *x += y;
         });
     }
 
@@ -38,8 +38,8 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(*stack.t(), 1);
     /// ```
     fn subtract(&mut self) {
-        self.binary_op_inplace(|x: &mut T, y: &T| {
-            *x -= *y;
+        self.binary_op_inplace_first_arg(|x: &mut T, y: &T| {
+            *x -= y;
         });
     }
 
@@ -57,8 +57,8 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(*stack.t(), 1);
     /// ```
     fn multiply(&mut self) {
-        self.binary_op_inplace(|x: &mut T, y: &T| {
-            *x *= *y;
+        self.binary_op_inplace_first_arg(|x: &mut T, y: &T| {
+            *x *= y;
         });
     }
 
@@ -76,8 +76,8 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// assert_eq!(*stack.t(), 1);
     /// ```
     fn divide(&mut self) {
-        self.binary_op_inplace(|x: &mut T, y: &T| {
-            *x = *y / *x;
+        self.binary_op_inplace_second_arg(|x: &T, y: &mut T| {
+            *y /= x;
         });
     }
 
@@ -96,7 +96,7 @@ impl<T: Copy + num_traits::NumAssignOps + num_traits::Signed> BasicMathOperation
     /// ```
     fn change_sign(&mut self) {
         self.unary_op_inplace(|x: &mut T| {
-            *x = -(*x);
+            *x = -x.clone();
         });
     }
 

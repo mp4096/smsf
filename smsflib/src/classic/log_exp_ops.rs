@@ -20,7 +20,7 @@ impl<T: Float> LogExpOperations for ClassicStack<T> {
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
     fn pow(&mut self) {
-        self.binary_op_inplace(|x: &mut T, y: &T| {
+        self.binary_op_inplace_first_arg(|x: &mut T, y: &T| {
             *x = y.powf(*x);
         });
     }
