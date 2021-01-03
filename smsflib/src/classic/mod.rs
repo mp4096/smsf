@@ -2,13 +2,14 @@
 
 /// Implementation of the [BasicStackOperations](crate::traits::BasicStackOperations) trait
 mod basic_ops;
-/// Implementation of the [LogExpOperations](crate::traits::LogExpOperations) trait
-mod log_exp_ops;
-/// Implementation of the [BasicMathOperations](crate::traits::BasicMathOperations) trait
-mod math_ops;
-/// Implementation of the [TrigOperations](crate::traits::TrigOperations) trait
-mod trig_ops;
 /// Data type definitions
 mod types;
 
 pub use types::ClassicStack;
+
+impl<T: num_traits::Float> crate::traits::LogExpOperations for ClassicStack<T> {}
+impl<T: num_traits::Float> crate::traits::TrigOperations for ClassicStack<T> {}
+impl<T: Clone + num_traits::NumAssignRef + num_traits::Signed> crate::traits::BasicMathOperations
+    for ClassicStack<T>
+{
+}
