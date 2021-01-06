@@ -9,35 +9,6 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
 
     type Elem = T;
 
-    /// Drop the X register, shifting other registers down and cloning the T register.
-    ///
-    /// ```text
-    /// T───┬─T
-    /// Z──╮╰─T
-    /// Y─╮╰──Z
-    /// X ╰───Y
-    /// ```
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use smsflib::prelude::*;
-    ///
-    /// let mut stack = ClassicStack::<u32>::new(1, 2, 3, 4);
-    /// let res = stack.drop();
-    ///
-    /// assert_eq!(res, Ok(()));
-    ///
-    /// assert_eq!(*stack.x(), 2);
-    /// assert_eq!(*stack.y(), 3);
-    /// assert_eq!(*stack.z(), 4);
-    /// assert_eq!(*stack.t(), 4);
-    /// ```
-    fn drop(&mut self) -> Result<(), SmsfError> {
-        self.x = std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone()));
-        Ok(())
-    }
-
     /// Rotate stack up:
     ///
     /// ```text
@@ -188,8 +159,16 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
 
     /// Pop a value from the X register, shifting other registers down and cloning the T register.
     ///
-    /// [ClassicStack] will always return a value, signature has a [Result] since the infinite stack
-    /// can be empty.
+    ///
+    /// ```text
+    /// T───┬─T
+    /// Z──╮╰─T
+    /// Y─╮╰──Z
+    /// X ╰───Y
+    /// ↓
+    /// ```
+    /// Note: [ClassicStack] will always return a value, signature has a [Result] since a
+    /// [DynamicSizedStack](crate::dynamic_sized::DynamicSizedStack) can be empty.
     ///
     /// # Example
     ///
