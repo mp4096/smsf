@@ -28,13 +28,21 @@ fn main() {
     let _ = stack.push(4).unwrap();
     println!("After pushing 4:\n{}", stack);
 
-    let mut stack = ClassicStack::<f64>::new_zero();
+    let mut stack = DynamicSizedStack::<f64>::new();
     let _ = stack.push(10.0).unwrap();
-    println!("After pushing 10.0:\n{}", stack);
-    let _ = stack.ln().unwrap();
-    println!("After computing ln:\n{}", stack);
-    let _ = stack.push(10.0).unwrap();
-    println!("After pushing 10.0:\n{}", stack);
-    let _ = stack.multiply().unwrap();
-    println!("After multiplying:\n{}", stack);
+    let _ = stack.push(7.0).unwrap();
+    let _ = stack.push(1.2).unwrap();
+    println!("{}", stack);
+    let _ = dbg! {stack.ln()};
+    println!("{}", stack);
+    let _ = dbg! {stack.push(123.0)};
+    println!("{}", stack);
+    let _ = dbg! {stack.divide()};
+    println!("{}", stack);
+    let _ = dbg! {stack.multiply()};
+    println!("{}", stack);
+    let _ = dbg! {stack.divide()};
+    println!("{}", stack);
+    let _ = dbg! { stack.divide() };
+    println!("{}", stack);
 }

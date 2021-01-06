@@ -19,6 +19,32 @@ where
     /// assert_eq!(*stack.z(), 1);
     /// assert_eq!(*stack.t(), 1);
     /// ```
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = DynamicSizedStack::<i32>::clone_from_slice(&[7, 2, 1]);
+    /// let res = stack.add();
+    ///
+    /// assert_eq!(res, Ok(()));
+    ///
+    /// assert_eq!(stack.len(), 2);
+    /// assert_eq!(stack.get(0), Some(&3));
+    /// assert_eq!(stack.get(1), Some(&7));
+    /// ```
+    ///
+    /// ```
+    /// use smsflib::prelude::*;
+    ///
+    /// let mut stack = DynamicSizedStack::<i32>::clone_from_slice(&[7]);
+    /// let res = stack.add();
+    ///
+    /// assert_eq!(res, Err(smsflib::error::Error::NotEnoughOperands{ num_required: 2, num_available: 1 }));
+    ///
+    /// assert_eq!(stack.len(), 1);
+    /// assert_eq!(stack.get(0), Some(&7));
+    /// ```
+    ///
     fn add(&mut self) -> Result<(), SmsfError> {
         self.binary_fn_in_place_first_arg(
             |x: &mut <Self as InPlaceFnApplication>::Elem,

@@ -8,3 +8,9 @@ mod in_place_fn_application_impl;
 mod types;
 
 pub use types::DynamicSizedStack;
+
+impl<T: num_traits::Float> crate::traits::FloatMathOperations for DynamicSizedStack<T> {}
+impl<T: Clone + num_traits::NumAssignRef + num_traits::Signed> crate::traits::BasicMathOperations
+    for DynamicSizedStack<T>
+{
+}
