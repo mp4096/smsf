@@ -1,5 +1,5 @@
-use crate::error::Error as SmsfError;
 use crate::stack::InPlaceFnApplication;
+use crate::Error as SmsfError;
 use num_traits::Signed;
 
 pub trait BasicMathOperations: InPlaceFnApplication
@@ -39,7 +39,7 @@ where
     /// let mut stack = DynamicSizedStack::<i32>::clone_from_slice(&[7]);
     /// let res = stack.add();
     ///
-    /// assert_eq!(res, Err(smsflib::error::Error::NotEnoughOperands{ num_required: 2, num_available: 1 }));
+    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{ num_required: 2, num_available: 1 }));
     ///
     /// assert_eq!(stack.len(), 1);
     /// assert_eq!(stack.get(0), Some(&7));

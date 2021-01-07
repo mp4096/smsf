@@ -1,5 +1,5 @@
-use crate::error::Error as SmsfError;
 use crate::stack::InPlaceFnApplication;
+use crate::Error as SmsfError;
 use num_traits::Float;
 
 pub trait FloatMathOperations: InPlaceFnApplication

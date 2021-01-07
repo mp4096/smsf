@@ -1,6 +1,6 @@
 use super::DynamicSizedStack;
-use crate::error::Error as SmsfError;
 use crate::stack::InPlaceFnApplication;
+use crate::Error as SmsfError;
 
 impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     type Elem = T;
@@ -15,7 +15,7 @@ impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     /// let mut stack = DynamicSizedStack::<u32>::new();
     /// let res = stack.unary_fn_in_place(|x: &mut u32| {*x += 10; } );
     ///
-    /// assert_eq!(res, Err(smsflib::error::Error::NotEnoughOperands { num_required: 1, num_available: 0 }));
+    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands { num_required: 1, num_available: 0 }));
     /// ```
     ///
     /// ```
@@ -71,7 +71,7 @@ impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     /// let mut stack = DynamicSizedStack::<u32>::clone_from_slice(&[10]);
     /// let res = stack.binary_fn_in_place_first_arg(|x: &mut u32, y: &u32| {*x *= y; } );
     ///
-    /// assert_eq!(res, Err(smsflib::error::Error::NotEnoughOperands{ num_required: 2, num_available: 1 }));
+    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{ num_required: 2, num_available: 1 }));
     /// ```
     ///
     fn binary_fn_in_place_first_arg<U: FnOnce(&mut Self::Elem, &Self::Elem)>(
@@ -115,7 +115,7 @@ impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     /// let mut stack = DynamicSizedStack::<u32>::clone_from_slice(&[10]);
     /// let res = stack.binary_fn_in_place_second_arg(|x: &u32, y: &mut u32| {*y /= x; } );
     ///
-    /// assert_eq!(res, Err(smsflib::error::Error::NotEnoughOperands{ num_required: 2, num_available: 1 }));
+    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{ num_required: 2, num_available: 1 }));
     /// ```
     ///
     fn binary_fn_in_place_second_arg<U: FnOnce(&Self::Elem, &mut Self::Elem)>(

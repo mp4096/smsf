@@ -1,4 +1,4 @@
-use crate::error::Error as SmsfError;
+use crate::Error as SmsfError;
 
 pub trait InPlaceFnApplication {
     type Elem;

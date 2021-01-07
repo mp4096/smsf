@@ -1,6 +1,6 @@
 use super::DynamicSizedStack;
-use crate::error::Error as SmsfError;
 use crate::stack::BasicStackOperations;
+use crate::Error as SmsfError;
 
 impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     type Elem = T;
@@ -157,7 +157,7 @@ impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     /// let mut stack = DynamicSizedStack::<u32>::clone_from_slice(&[1]);
     /// let res = stack.swap();
     ///
-    /// assert_eq!(res, Err(smsflib::error::Error::NotEnoughOperands{num_required: 2, num_available: 1}));
+    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{num_required: 2, num_available: 1}));
     ///
     /// assert_eq!(stack.len(), 1);
     /// assert_eq!(stack.get(0), Some(&1));
@@ -203,7 +203,7 @@ impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     /// let mut stack = DynamicSizedStack::<u32>::new();
     /// let res = stack.pop();
     ///
-    /// assert_eq!(res, Err(smsflib::error::Error::NotEnoughOperands{ num_required: 1, num_available: 0 }));
+    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{ num_required: 1, num_available: 0 }));
     /// ```
     ///
     fn pop(&mut self) -> Result<Self::Elem, SmsfError> {

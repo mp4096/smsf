@@ -1,6 +1,6 @@
 use super::types::ClassicStack;
-use crate::error::Error as SmsfError;
 use crate::stack::InPlaceFnApplication;
+use crate::Error as SmsfError;
 
 impl<T: Clone> InPlaceFnApplication for ClassicStack<T> {
     /// # Note

@@ -1,6 +1,6 @@
 use super::types::ClassicStack;
-use crate::error::Error as SmsfError;
 use crate::stack::BasicStackOperations;
+use crate::Error as SmsfError;
 
 impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// # Note

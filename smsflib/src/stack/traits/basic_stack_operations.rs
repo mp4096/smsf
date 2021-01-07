@@ -1,4 +1,4 @@
-use crate::error::Error as SmsfError;
+use crate::Error as SmsfError;
 
 pub trait BasicStackOperations {
     type Elem;
@@ -48,7 +48,7 @@ pub trait BasicStackOperations {
     /// let mut stack = DynamicSizedStack::<u32>::new();
     /// let res = stack.drop();
     ///
-    /// assert_eq!(res, Err(smsflib::error::Error::NotEnoughOperands{num_required: 1, num_available: 0}));
+    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{num_required: 1, num_available: 0}));
     ///
     /// assert_eq!(stack.is_empty(), true);
     /// ```
