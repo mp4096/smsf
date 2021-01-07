@@ -1,3 +1,4 @@
+/// Dynamic-sized RPL-like stack
 #[derive(Debug)]
 pub struct DynamicSizedStack<T> {
     pub(super) container: Vec<T>,

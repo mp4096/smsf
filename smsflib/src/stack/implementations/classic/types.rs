@@ -1,3 +1,4 @@
+/// Classic HP 35-like stack with a fixed size of four registers: X, Y, Z, T
 #[derive(Debug)]
 pub struct ClassicStack<T> {
     pub(super) x: T,
