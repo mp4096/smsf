@@ -109,7 +109,7 @@ impl<T: Clone> DynamicSizedStack<T> {
 impl<T: std::fmt::Display> std::fmt::Display for DynamicSizedStack<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for (idx, elem) in self.container.iter().enumerate() {
-            write!(f, "{}: {}\n", self.len() - (idx + 1), elem)?;
+            writeln!(f, "{}: {}", self.len() - (idx + 1), elem)?;
         }
         Ok(())
     }
