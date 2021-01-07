@@ -1,7 +1,7 @@
-use super::ClassicStack;
+use super::types::ClassicStack;
 use crate::error::Error as SmsfError;
-use crate::traits::BasicStackOperations;
-use crate::traits::InPlaceFnApplication;
+use crate::stack::BasicStackOperations;
+use crate::stack::InPlaceFnApplication;
 
 impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// # Note
@@ -168,7 +168,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// ↓
     /// ```
     /// Note: [ClassicStack] will always return a value, signature has a [Result] since a
-    /// [DynamicSizedStack](crate::dynamic_sized::DynamicSizedStack) can be empty.
+    /// [DynamicSizedStack](crate::stack::DynamicSizedStack) can be empty.
     ///
     /// # Example
     ///

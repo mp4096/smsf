@@ -1,6 +1,6 @@
 use super::DynamicSizedStack;
 use crate::error::Error as SmsfError;
-use crate::traits::BasicStackOperations;
+use crate::stack::BasicStackOperations;
 
 impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     type Elem = T;

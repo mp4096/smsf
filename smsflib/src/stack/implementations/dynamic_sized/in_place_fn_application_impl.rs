@@ -1,6 +1,6 @@
 use super::DynamicSizedStack;
 use crate::error::Error as SmsfError;
-use crate::traits::InPlaceFnApplication;
+use crate::stack::InPlaceFnApplication;
 
 impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     type Elem = T;

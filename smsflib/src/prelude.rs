@@ -1,5 +1,6 @@
-pub use crate::classic::ClassicStack;
-pub use crate::dynamic_sized::DynamicSizedStack;
-pub use crate::traits::{
+// Traits
+pub use crate::stack::{
     BasicMathOperations, BasicStackOperations, FloatMathOperations, InPlaceFnApplication,
 };
+// Types
+pub use crate::stack::{ClassicStack, DynamicSizedStack};

@@ -1,5 +1,5 @@
 use crate::error::Error as SmsfError;
-use crate::traits::InPlaceFnApplication;
+use crate::stack::InPlaceFnApplication;
 use num_traits::Signed;
 
 pub trait BasicMathOperations: InPlaceFnApplication
