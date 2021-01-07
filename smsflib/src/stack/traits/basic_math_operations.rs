@@ -1,5 +1,5 @@
 use crate::stack::InPlaceFnApplication;
-use crate::Error as SmsfError;
+use crate::StackError as SmsfStackError;
 use num_traits::Signed;
 
 pub trait BasicMathOperations: InPlaceFnApplication
@@ -39,13 +39,13 @@ where
     /// let mut stack = DynamicSizedStack::<i32>::clone_from_slice(&[7]);
     /// let res = stack.add();
     ///
-    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{ num_required: 2, num_available: 1 }));
+    /// assert_eq!(res, Err(smsflib::StackError::NotEnoughOperands{ num_required: 2, num_available: 1 }));
     ///
     /// assert_eq!(stack.len(), 1);
     /// assert_eq!(stack.get(0), Some(&7));
     /// ```
     ///
-    fn add(&mut self) -> Result<(), SmsfError> {
+    fn add(&mut self) -> Result<(), SmsfStackError> {
         self.binary_fn_in_place_first_arg(
             |x: &mut <Self as InPlaceFnApplication>::Elem,
              y: &<Self as InPlaceFnApplication>::Elem| {
@@ -67,7 +67,7 @@ where
     /// assert_eq!(*stack.z(), 1);
     /// assert_eq!(*stack.t(), 1);
     /// ```
-    fn subtract(&mut self) -> Result<(), SmsfError> {
+    fn subtract(&mut self) -> Result<(), SmsfStackError> {
         self.binary_fn_in_place_first_arg(
             |x: &mut <Self as InPlaceFnApplication>::Elem,
              y: &<Self as InPlaceFnApplication>::Elem| {
@@ -89,7 +89,7 @@ where
     /// assert_eq!(*stack.z(), 1);
     /// assert_eq!(*stack.t(), 1);
     /// ```
-    fn multiply(&mut self) -> Result<(), SmsfError> {
+    fn multiply(&mut self) -> Result<(), SmsfStackError> {
         self.binary_fn_in_place_first_arg(
             |x: &mut <Self as InPlaceFnApplication>::Elem,
              y: &<Self as InPlaceFnApplication>::Elem| {
@@ -111,7 +111,7 @@ where
     /// assert_eq!(*stack.z(), 1);
     /// assert_eq!(*stack.t(), 1);
     /// ```
-    fn divide(&mut self) -> Result<(), SmsfError> {
+    fn divide(&mut self) -> Result<(), SmsfStackError> {
         self.binary_fn_in_place_second_arg(
             |x: &<Self as InPlaceFnApplication>::Elem,
              y: &mut <Self as InPlaceFnApplication>::Elem| {
@@ -133,7 +133,7 @@ where
     /// assert_eq!(*stack.z(), 3);
     /// assert_eq!(*stack.t(), 4);
     /// ```
-    fn change_sign(&mut self) -> Result<(), SmsfError> {
+    fn change_sign(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = -x.clone();
         })
@@ -152,7 +152,7 @@ where
     /// assert_eq!(*stack.z(), -3);
     /// assert_eq!(*stack.t(), -4);
     /// ```
-    fn absolute_value(&mut self) -> Result<(), SmsfError> {
+    fn absolute_value(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.abs();
         })

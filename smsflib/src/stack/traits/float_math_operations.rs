@@ -1,5 +1,5 @@
 use crate::stack::InPlaceFnApplication;
-use crate::Error as SmsfError;
+use crate::StackError as SmsfStackError;
 use num_traits::Float;
 
 pub trait FloatMathOperations: InPlaceFnApplication
@@ -20,7 +20,7 @@ where
     /// assert_eq!(*stack.z(), 3.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn pow(&mut self) -> Result<(), SmsfError> {
+    fn pow(&mut self) -> Result<(), SmsfStackError> {
         self.binary_fn_in_place_first_arg(
             |x: &mut <Self as InPlaceFnApplication>::Elem,
              y: &<Self as InPlaceFnApplication>::Elem| {
@@ -43,7 +43,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn ln(&mut self) -> Result<(), SmsfError> {
+    fn ln(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.ln();
         })
@@ -63,7 +63,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn log2(&mut self) -> Result<(), SmsfError> {
+    fn log2(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.log2();
         })
@@ -83,7 +83,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn log10(&mut self) -> Result<(), SmsfError> {
+    fn log10(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.log10();
         })
@@ -103,7 +103,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn exp(&mut self) -> Result<(), SmsfError> {
+    fn exp(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.exp();
         })
@@ -123,7 +123,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn exp2(&mut self) -> Result<(), SmsfError> {
+    fn exp2(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.exp2();
         })
@@ -143,7 +143,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn sin(&mut self) -> Result<(), SmsfError> {
+    fn sin(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.sin();
         })
@@ -163,7 +163,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn cos(&mut self) -> Result<(), SmsfError> {
+    fn cos(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.cos();
         })
@@ -183,7 +183,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn tan(&mut self) -> Result<(), SmsfError> {
+    fn tan(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.tan();
         })
@@ -203,7 +203,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn asin(&mut self) -> Result<(), SmsfError> {
+    fn asin(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.asin();
         })
@@ -223,7 +223,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn acos(&mut self) -> Result<(), SmsfError> {
+    fn acos(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.acos();
         })
@@ -243,7 +243,7 @@ where
     /// assert_eq!(*stack.z(), 2.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn atan(&mut self) -> Result<(), SmsfError> {
+    fn atan(&mut self) -> Result<(), SmsfStackError> {
         self.unary_fn_in_place(|x: &mut <Self as InPlaceFnApplication>::Elem| {
             *x = x.atan();
         })
@@ -263,7 +263,7 @@ where
     /// assert_eq!(*stack.z(), 3.0);
     /// assert_eq!(*stack.t(), 3.0);
     /// ```
-    fn atan2(&mut self) -> Result<(), SmsfError> {
+    fn atan2(&mut self) -> Result<(), SmsfStackError> {
         self.binary_fn_in_place_first_arg(
             |x: &mut <Self as InPlaceFnApplication>::Elem,
              y: &<Self as InPlaceFnApplication>::Elem| {

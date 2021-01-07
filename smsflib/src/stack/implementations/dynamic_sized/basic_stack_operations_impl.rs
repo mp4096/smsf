@@ -1,6 +1,6 @@
 use super::DynamicSizedStack;
 use crate::stack::BasicStackOperations;
-use crate::Error as SmsfError;
+use crate::StackError as SmsfStackError;
 
 impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     type Elem = T;
@@ -57,7 +57,7 @@ impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     /// assert_eq!(stack.get(0), Some(&1));
     /// ```
     ///
-    fn rotate_up(&mut self) -> Result<(), SmsfError> {
+    fn rotate_up(&mut self) -> Result<(), SmsfStackError> {
         if !self.is_empty() {
             self.container.rotate_left(1);
         }
@@ -115,7 +115,7 @@ impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     /// assert_eq!(stack.get(0), Some(&1));
     /// ```
     ///
-    fn rotate_down(&mut self) -> Result<(), SmsfError> {
+    fn rotate_down(&mut self) -> Result<(), SmsfStackError> {
         if !self.is_empty() {
             self.container.rotate_right(1);
         }
@@ -157,20 +157,20 @@ impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     /// let mut stack = DynamicSizedStack::<u32>::clone_from_slice(&[1]);
     /// let res = stack.swap();
     ///
-    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{num_required: 2, num_available: 1}));
+    /// assert_eq!(res, Err(smsflib::StackError::NotEnoughOperands{num_required: 2, num_available: 1}));
     ///
     /// assert_eq!(stack.len(), 1);
     /// assert_eq!(stack.get(0), Some(&1));
     /// ```
     ///
-    fn swap(&mut self) -> Result<(), SmsfError> {
+    fn swap(&mut self) -> Result<(), SmsfStackError> {
         if self.len() >= 2 {
             let idx_ultimate = self.len() - 1;
             let idx_penultimate = self.len() - 2;
             self.container.swap(idx_penultimate, idx_ultimate);
             Ok(())
         } else {
-            Err(SmsfError::NotEnoughOperands {
+            Err(SmsfStackError::NotEnoughOperands {
                 num_required: 2,
                 num_available: self.len(),
             })
@@ -203,13 +203,13 @@ impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     /// let mut stack = DynamicSizedStack::<u32>::new();
     /// let res = stack.pop();
     ///
-    /// assert_eq!(res, Err(smsflib::Error::NotEnoughOperands{ num_required: 1, num_available: 0 }));
+    /// assert_eq!(res, Err(smsflib::StackError::NotEnoughOperands{ num_required: 1, num_available: 0 }));
     /// ```
     ///
-    fn pop(&mut self) -> Result<Self::Elem, SmsfError> {
+    fn pop(&mut self) -> Result<Self::Elem, SmsfStackError> {
         match self.container.pop() {
             Some(e) => Ok(e),
-            None => Err(SmsfError::NotEnoughOperands {
+            None => Err(SmsfStackError::NotEnoughOperands {
                 num_required: 1,
                 num_available: 0,
             }),
@@ -237,7 +237,7 @@ impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     /// assert_eq!(stack.get(1), Some(&1));
     /// ```
     ///
-    fn push(&mut self, value: Self::Elem) -> Result<(), SmsfError> {
+    fn push(&mut self, value: Self::Elem) -> Result<(), SmsfStackError> {
         self.container.push(value);
         Ok(())
     }
@@ -257,7 +257,7 @@ impl<T: Clone> BasicStackOperations for DynamicSizedStack<T> {
     /// assert_eq!(stack.is_empty(), true);
     /// ```
     ///
-    fn clear(&mut self) -> Result<(), SmsfError> {
+    fn clear(&mut self) -> Result<(), SmsfStackError> {
         self.container.clear();
         Ok(())
     }
