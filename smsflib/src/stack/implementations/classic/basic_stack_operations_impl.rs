@@ -1,6 +1,5 @@
 use super::types::ClassicStack;
 use crate::stack::BasicStackOperations;
-use crate::StackError as SmsfStackError;
 
 impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// # Note
@@ -51,7 +50,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.t(), 4);
     /// ```
     ///
-    fn rotate_up(&mut self) -> Result<(), SmsfStackError> {
+    fn rotate_up(&mut self) -> Result<(), crate::StackError> {
         std::mem::swap(&mut self.x, &mut self.y);
         std::mem::swap(&mut self.x, &mut self.z);
         std::mem::swap(&mut self.x, &mut self.t);
@@ -101,7 +100,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.t(), 4);
     /// ```
     ///
-    fn rotate_down(&mut self) -> Result<(), SmsfStackError> {
+    fn rotate_down(&mut self) -> Result<(), crate::StackError> {
         std::mem::swap(&mut self.x, &mut self.t);
         std::mem::swap(&mut self.x, &mut self.z);
         std::mem::swap(&mut self.x, &mut self.y);
@@ -151,7 +150,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.t(), 4);
     /// ```
     ///
-    fn swap(&mut self) -> Result<(), SmsfStackError> {
+    fn swap(&mut self) -> Result<(), crate::StackError> {
         std::mem::swap(&mut self.x, &mut self.y);
         Ok(())
     }
@@ -183,7 +182,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 4);
     /// assert_eq!(*stack.t(), 4);
     /// ```
-    fn pop(&mut self) -> Result<Self::Elem, SmsfStackError> {
+    fn pop(&mut self) -> Result<Self::Elem, crate::StackError> {
         Ok(std::mem::replace(
             &mut self.x,
             std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone())),
@@ -207,7 +206,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 2);
     /// assert_eq!(*stack.t(), 3);
     /// ```
-    fn push(&mut self, value: Self::Elem) -> Result<(), SmsfStackError> {
+    fn push(&mut self, value: Self::Elem) -> Result<(), crate::StackError> {
         self.t = std::mem::replace(
             &mut self.z,
             std::mem::replace(&mut self.y, std::mem::replace(&mut self.x, value)),
@@ -232,7 +231,7 @@ impl<T: num_traits::Zero + Clone> BasicStackOperations for ClassicStack<T> {
     /// assert_eq!(*stack.z(), 0);
     /// assert_eq!(*stack.t(), 0);
     /// ```
-    fn clear(&mut self) -> Result<(), SmsfStackError> {
+    fn clear(&mut self) -> Result<(), crate::StackError> {
         use num_traits::identities::zero;
         self.x = zero();
         self.y = zero();

@@ -1,19 +1,17 @@
-use crate::StackError as SmsfStackError;
-
 pub trait BasicStackOperations {
     type Elem;
 
-    fn rotate_up(&mut self) -> Result<(), SmsfStackError>;
+    fn rotate_up(&mut self) -> Result<(), crate::StackError>;
 
-    fn rotate_down(&mut self) -> Result<(), SmsfStackError>;
+    fn rotate_down(&mut self) -> Result<(), crate::StackError>;
 
-    fn swap(&mut self) -> Result<(), SmsfStackError>;
+    fn swap(&mut self) -> Result<(), crate::StackError>;
 
-    fn pop(&mut self) -> Result<Self::Elem, SmsfStackError>;
+    fn pop(&mut self) -> Result<Self::Elem, crate::StackError>;
 
-    fn push(&mut self, value: Self::Elem) -> Result<(), SmsfStackError>;
+    fn push(&mut self, value: Self::Elem) -> Result<(), crate::StackError>;
 
-    fn clear(&mut self) -> Result<(), SmsfStackError>;
+    fn clear(&mut self) -> Result<(), crate::StackError>;
 
     /// ```
     /// use smsflib::prelude::*;
@@ -52,7 +50,7 @@ pub trait BasicStackOperations {
     ///
     /// assert_eq!(stack.is_empty(), true);
     /// ```
-    fn drop(&mut self) -> Result<(), SmsfStackError> {
+    fn drop(&mut self) -> Result<(), crate::StackError> {
         self.pop().and(Ok(()))
     }
 }

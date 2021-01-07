@@ -1,6 +1,5 @@
 use super::DynamicSizedStack;
 use crate::stack::InPlaceFnApplication;
-use crate::StackError as SmsfStackError;
 
 impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     type Elem = T;
@@ -35,13 +34,13 @@ impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     fn unary_fn_in_place<U: FnOnce(&mut Self::Elem)>(
         &mut self,
         unary_fn: U,
-    ) -> Result<(), SmsfStackError> {
+    ) -> Result<(), crate::StackError> {
         match self.container.last_mut() {
             Some(first_elem_mut_ref) => {
                 unary_fn(first_elem_mut_ref);
                 Ok(())
             }
-            None => Err(SmsfStackError::NotEnoughOperands {
+            None => Err(crate::StackError::NotEnoughOperands {
                 num_required: 1,
                 num_available: 0,
             }),
@@ -77,7 +76,7 @@ impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     fn binary_fn_in_place_first_arg<U: FnOnce(&mut Self::Elem, &Self::Elem)>(
         &mut self,
         binary_fn: U,
-    ) -> Result<(), SmsfStackError> {
+    ) -> Result<(), crate::StackError> {
         if self.len() >= 2 {
             // '.unwrap()' is safe here
             let idx_penultimate = self.len() - 2;
@@ -85,7 +84,7 @@ impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
             binary_fn(self.container.last_mut().unwrap(), &penultimate_item);
             Ok(())
         } else {
-            Err(SmsfStackError::NotEnoughOperands {
+            Err(crate::StackError::NotEnoughOperands {
                 num_required: 2,
                 num_available: self.len(),
             })
@@ -121,14 +120,14 @@ impl<T: Clone> InPlaceFnApplication for DynamicSizedStack<T> {
     fn binary_fn_in_place_second_arg<U: FnOnce(&Self::Elem, &mut Self::Elem)>(
         &mut self,
         binary_fn: U,
-    ) -> Result<(), SmsfStackError> {
+    ) -> Result<(), crate::StackError> {
         if self.len() >= 2 {
             // '.unwrap()'s are safe here
             let ultimate_item = self.container.pop().unwrap();
             binary_fn(&ultimate_item, self.container.last_mut().unwrap());
             Ok(())
         } else {
-            Err(SmsfStackError::NotEnoughOperands {
+            Err(crate::StackError::NotEnoughOperands {
                 num_required: 2,
                 num_available: self.len(),
             })

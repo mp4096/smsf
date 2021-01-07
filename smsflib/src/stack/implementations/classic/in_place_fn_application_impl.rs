@@ -1,6 +1,5 @@
 use super::types::ClassicStack;
 use crate::stack::InPlaceFnApplication;
-use crate::StackError as SmsfStackError;
 
 impl<T: Clone> InPlaceFnApplication for ClassicStack<T> {
     /// # Note
@@ -27,7 +26,7 @@ impl<T: Clone> InPlaceFnApplication for ClassicStack<T> {
     fn unary_fn_in_place<U: FnOnce(&mut Self::Elem)>(
         &mut self,
         unary_fn: U,
-    ) -> Result<(), SmsfStackError> {
+    ) -> Result<(), crate::StackError> {
         unary_fn(&mut self.x);
         Ok(())
     }
@@ -53,7 +52,7 @@ impl<T: Clone> InPlaceFnApplication for ClassicStack<T> {
     fn binary_fn_in_place_first_arg<U: FnOnce(&mut Self::Elem, &Self::Elem)>(
         &mut self,
         binary_fn: U,
-    ) -> Result<(), SmsfStackError> {
+    ) -> Result<(), crate::StackError> {
         binary_fn(&mut self.x, &self.y);
         self.y = std::mem::replace(&mut self.z, self.t.clone());
         Ok(())
@@ -80,7 +79,7 @@ impl<T: Clone> InPlaceFnApplication for ClassicStack<T> {
     fn binary_fn_in_place_second_arg<U: FnOnce(&Self::Elem, &mut Self::Elem)>(
         &mut self,
         binary_fn: U,
-    ) -> Result<(), SmsfStackError> {
+    ) -> Result<(), crate::StackError> {
         binary_fn(&self.x, &mut self.y);
         self.x = std::mem::replace(&mut self.y, std::mem::replace(&mut self.z, self.t.clone()));
         Ok(())
